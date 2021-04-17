@@ -1,8 +1,8 @@
 {
-  "name": "netatmo",
+  "name": "MMM-Netatmo",
   "version": "2.0.0",
   "description": "",
-  "main": "netatmo.js",
+  "main": "MMM-Netatmo.js",
   "scripts": {
     "test": "grunt test"
   },
