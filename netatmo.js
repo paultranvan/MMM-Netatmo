@@ -24,7 +24,7 @@ Module.register('netatmo', {
       base: 'https://api.netatmo.com/',
       authEndpoint: 'oauth2/token',
       authPayload: 'grant_type=refresh_token&refresh_token={0}&client_id={1}&client_secret={2}',
-      dataEndpoint: 'api/getstationsdata',
+      dataEndpoint: 'api/gethomecoachsdata',
       dataPayload: 'access_token={0}'
     }
   },
@@ -229,8 +229,10 @@ Module.register('netatmo', {
               // render station data (main station)
               sResult.append(this.renderModule(device));
               // render module data (connected modules)
-              for (var cnt = 0; cnt < device.modules.length; cnt++) {
-                sResult.append(this.renderModule(device.modules[cnt]));
+              if (device.modules) {
+                for (var cnt = 0; cnt < device.modules.length; cnt++) {
+                  sResult.append(this.renderModule(device.modules[cnt]));
+                }
               }
             }
             return sResult;
@@ -239,7 +241,7 @@ Module.register('netatmo', {
             return $('<div/>').addClass('module').append(
               $('<div>').addClass('data').append(this.renderSensorData(oModule))
             ).append(
-              $('<div>').addClass('name small').append(oModule.module_name)
+              $('<div>').addClass('name small').append(oModule.station_name)
             );
           },
           renderSensorData: function(oModule) {
@@ -315,7 +317,7 @@ Module.register('netatmo', {
           },
           module: function(module){
             var result = $('<div/>').addClass('module').append(
-              $('<div/>').addClass('name small').append(module.module_name)
+              $('<div/>').addClass('name small').append(module.station_name)
             ).append(
               $('<div/>').append(
                 $('<table/>').addClass('').append(
